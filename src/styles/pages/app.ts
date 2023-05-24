@@ -13,4 +13,8 @@ export const Header = styled('header', {
   width: '100%',
   maxWidth: 1100,
   margin: '0 auto',
+
+  '@media (max-width: 575.98px)': {
+    padding: '2rem',
+  },
 });

@@ -5,9 +5,15 @@ export const ProductContainer = styled('main', {
   gridTemplateColumns: '1fr 1fr',
   alignItems: 'stretch',
   gap: '4rem',
+  padding: '0 2rem',
 
   maxWidth: 1180,
   margin: '0 auto',
+
+  '@media (max-width: 575.98px)': {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 });
 
 export const ImageContainer = styled('div', {
@@ -59,6 +65,10 @@ export const ProductDetails = styled('div', {
     cursor: 'pointer',
     fontWeight: 'bold',
     fontSize: '$md',
+
+    '@media (max-width: 575.98px)': {
+      margin: '1rem 0',
+    },
 
     '&:disabled': {
       opacity: 0.6,
