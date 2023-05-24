@@ -8,6 +8,10 @@ export const SuccessContainer = styled('main', {
   margin: '0 auto',
   height: 656,
 
+  '@media (max-width: 575.98px)': {
+    padding: '0.75rem',
+  },
+
   h1: {
     fontSize: '$2xl',
     color: '$gray100',
@@ -31,8 +35,8 @@ export const SuccessContainer = styled('main', {
     fontWeight: 'bold',
 
     '&:hover': {
-        color: '$green300'
-    }
+      color: '$green300',
+    },
   },
 });
 

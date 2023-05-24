@@ -8,7 +8,7 @@ export const HomeContainer = styled('main', {
   minHeight: 656,
 
   '@media (max-width: 575.98px)': {
-    padding: '0.5rem',
+    padding: '0 1rem',
   },
 });
 

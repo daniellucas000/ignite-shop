@@ -27,6 +27,10 @@ export const ImageContainer = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
 
+  '@media (max-width: 575.98px)': {
+    height: '100%',
+  },
+
   img: {
     objectFit: 'cover',
   },
