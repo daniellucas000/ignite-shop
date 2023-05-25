@@ -42,6 +42,16 @@ export const Product = styled('div', {
 
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
+    div: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 4,
+    },
+
+    'button > span': {
+      display: 'none',
+    },
+
     transform: 'translateY(110%)',
     opacity: 0,
     transition: 'all 0.2s ease-in-out',

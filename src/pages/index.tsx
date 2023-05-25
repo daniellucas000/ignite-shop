@@ -10,17 +10,18 @@ import { HomeContainer, Product } from '@/styles/pages/home';
 
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
+import { CartButton } from '@/components/CartButton';
+import { useCart } from '../hooks/useCart';
+import { IProduct } from '../Context/CartContext';
+import { MouseEvent, useEffect, useState } from 'react';
 
 interface HomeProps {
-  products: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-  }[];
+  products: IProduct[];
 }
 
 export default function Home({ products }: HomeProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
   const [sliderRef] = useKeenSlider({
     breakpoints: {
       '(max-width: 575.98px)': {
@@ -33,6 +34,21 @@ export default function Home({ products }: HomeProps) {
     },
   });
 
+  const { addToCart, checkIfItemAlreadyExists } = useCart();
+
+  function handleAddToCart(
+    e: MouseEvent<HTMLButtonElement>,
+    product: IProduct
+  ) {
+    e.preventDefault();
+    addToCart(product);
+  }
+
+  // useEffect(() => {
+  //   //fake loading skeleton
+  //   const timeOut = setTimeout(() => setIsLoading(false), 2000);
+  //   return () => clearTimeout(timeOut);
+  // }, []);
   return (
     <>
       <Head>
@@ -51,8 +67,17 @@ export default function Home({ products }: HomeProps) {
                 <Image src={product.imageUrl} width={520} height={480} alt="" />
 
                 <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </div>
+
+                  <CartButton
+                    color="green"
+                    size="large"
+                    disabled={checkIfItemAlreadyExists(product.id)}
+                    onClick={(e) => handleAddToCart(e, product)}
+                  />
                 </footer>
               </Product>
             </Link>
@@ -79,6 +104,8 @@ export const getStaticProps: GetStaticProps = async () => {
         style: 'currency',
         currency: 'BRL',
       }).format((price.unit_amount as number) / 100),
+      numberPrice: price.unit_amount / 100,
+      defaultPriceId: price.id,
     };
   });
 
