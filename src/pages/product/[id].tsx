@@ -1,18 +1,18 @@
+import axios from 'axios';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Image from 'next/image';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import Stripe from 'stripe';
 import { IProduct } from '@/Context/CartContext';
-import { useCart } from '@/hooks/useCart';
-import { stripe } from '@/lib/stripe';
+import { useCart } from '../../hooks/useCart';
+import { stripe } from '../../lib/stripe';
 import {
   ImageContainer,
   ProductContainer,
   ProductDetails,
-} from '@/styles/pages/product';
-
-import { GetStaticPaths, GetStaticProps } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
-import Stripe from 'stripe';
+} from '../../styles/pages/product';
 
 interface ProductProps {
   product: IProduct;
@@ -23,18 +23,17 @@ export default function Product({ product }: ProductProps) {
 
   const { addToCart, checkIfItemAlreadyExists } = useCart();
 
-  const itemAlreadyInCart = checkIfItemAlreadyExists(product.id);
-
   if (isFallback) {
     return <p>Loading...</p>;
   }
+
+  const itemAlreadyInCart = checkIfItemAlreadyExists(product.id);
 
   return (
     <>
       <Head>
         <title>{`${product.name} | Ignite Shop`}</title>
       </Head>
-
       <ProductContainer>
         <ImageContainer>
           <Image src={product.imageUrl} width={520} height={480} alt="" />
@@ -61,8 +60,10 @@ export default function Product({ product }: ProductProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = [{ params: { id: 'prod_MO0C3yNu4UBp9p' } }];
+
   return {
-    paths: [{ params: { id: 'prod_NwqtcQ1UGdvIcv' } }],
+    paths,
     fallback: true,
   };
 };
@@ -87,7 +88,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         price: new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL',
-        }).format((price.unit_amount as number) / 100),
+        }).format(price.unit_amount / 100),
         numberPrice: price.unit_amount / 100,
         description: product.description,
         defaultPriceId: price.id,
