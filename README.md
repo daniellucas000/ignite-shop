@@ -25,8 +25,11 @@
 - [ReactJS](https://reactjs.org)
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Radix](https://www.radix-ui.com/)
 - [Stitches](https://stitches.dev/)
 - [Stripe](https://dashboard.stripe.com/register)
+    
+    
 
 ---
 
