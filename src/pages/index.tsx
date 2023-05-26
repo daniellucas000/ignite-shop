@@ -20,8 +20,6 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
-  const [isLoading, setIsLoading] = useState(true);
-
   const [sliderRef] = useKeenSlider({
     breakpoints: {
       '(max-width: 575.98px)': {
@@ -44,11 +42,6 @@ export default function Home({ products }: HomeProps) {
     addToCart(product);
   }
 
-  // useEffect(() => {
-  //   //fake loading skeleton
-  //   const timeOut = setTimeout(() => setIsLoading(false), 2000);
-  //   return () => clearTimeout(timeOut);
-  // }, []);
   return (
     <>
       <Head>
